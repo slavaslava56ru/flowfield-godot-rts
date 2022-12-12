@@ -1,0 +1,1002 @@
+[gd_scene load_steps=12 format=3 uid="uid://bcsnvrav2o7th"]
+
+[ext_resource type="Script" path="res://Scripts/RTSController.gd" id="1_ld2hn"]
+[ext_resource type="Script" path="res://Scripts/Grid.gd" id="2_gprhs"]
+[ext_resource type="Script" path="res://Scripts/Unit.gd" id="3_08syf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_n1v42"]
+size = Vector3(2, 1, 1)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jenjo"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_t8rx5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4ide"]
+albedo_color = Color(0.415686, 0.698039, 0.333333, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_yyy2r"]
+material = SubResource("StandardMaterial3D_g4ide")
+size = Vector2(300, 300)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_nytre"]
+data = PackedVector3Array(150, 0, 150, -150, 0, 150, 150, 0, -150, -150, 0, 150, -150, 0, -150, 150, 0, -150)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m75cd"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_jo4ox"]
+material = SubResource("StandardMaterial3D_m75cd")
+size = Vector2(0.1, 2)
+
+[node name="World" type="Node3D"]
+
+[node name="RTSController" type="Node3D" parent="."]
+transform = Transform3D(1, -6.89952e-16, 7.25168e-17, 7.25169e-17, 0.207912, 0.978147, -6.89952e-16, -0.978147, 0.207912, -0.145187, 0, 4.46069)
+script = ExtResource("1_ld2hn")
+
+[node name="Camera3D" type="Camera3D" parent="RTSController"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 1, 30)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.936342, -0.35109, -1.32853e-07, 0.0828181, 0.220872, 0.97178, -0.341182, -0.909918, 0.235888, -10.2791, 14.2347, 4.98814)
+
+[node name="Grid" type="Node3D" parent="."]
+script = ExtResource("2_gprhs")
+
+[node name="Block" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block2" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.12798)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block3" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.707, 0, 0)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block4" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.769)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block5" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.5961, 0, -42.639)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block6" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.17, 0, 0)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Block7" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -141.395, 0, -139.849)
+mesh = SubResource("BoxMesh_n1v42")
+
+[node name="Block8" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 148.802, 0, 149.273)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../Block7")
+
+[node name="Block9" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.6135, 2.08165e-12, 8.41)
+mesh = SubResource("BoxMesh_n1v42")
+skeleton = NodePath("../..")
+
+[node name="Units" type="Node3D" parent="Grid"]
+
+[node name="Unit" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit2" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit2"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit2/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit3" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit3"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit3/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit4" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit4"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit4/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit5" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit5"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit5/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit6" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit6"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit6/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit7" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit7"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit7/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit8" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit8"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit8/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit9" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit9"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit9/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit10" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit10"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit10/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit11" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit11"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit11/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit12" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit12"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit12/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit13" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit13"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit13/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit14" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit14"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit14/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit15" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit15"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit15/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit16" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit16"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit16/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit17" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit17"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit17/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit18" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit18"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit18/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit19" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit19"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit19/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit20" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit20"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit20/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit21" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit21"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit21/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit22" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit22"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit22/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit23" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit23"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit23/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit24" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit24"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit24/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit25" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit25"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit25/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit26" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.0372, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit26"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit26/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit27" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit27"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit27/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit28" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.2285, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit28"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit28/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit29" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit29"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit29/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit30" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.4153, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit30"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit30/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit31" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit31"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit31/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit32" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.6065, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit32"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit32/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit33" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit33"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit33/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit34" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit34"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit34/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit35" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit35"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit35/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit36" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit36"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit36/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit37" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit37"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit37/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit38" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit38"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit38/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit39" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0, -14.5443)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit39"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit39/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit40" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0.504249, -13.5034)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit40"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit40/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit41" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit41"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit41/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit42" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit42"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit42/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit43" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit43"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit43/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit44" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit44"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit44/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit45" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit45"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit45/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit46" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit46"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit46/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit47" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0, -16.7369)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit47"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit47/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit48" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0.504249, -15.696)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit48"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit48/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit49" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit49"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit49/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit50" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit50"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit50/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit51" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit51"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit51/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit52" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit52"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit52/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit53" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit53"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit53/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit54" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit54"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit54/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit55" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0, -10.1778)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit55"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit55/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit56" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0.504249, -9.13699)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit56"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit56/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit57" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit57"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit57/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit58" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.3396, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit58"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit58/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit59" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit59"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit59/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit60" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.5309, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit60"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit60/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit61" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit61"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit61/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit62" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.7177, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit62"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit62/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit63" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0, -12.3704)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit63"]
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit63/CollisionShape3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4988, 0)
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Unit64" type="CharacterBody3D" parent="Grid/Units"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.909, 0.504249, -11.3295)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_08syf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Units/Unit64"]
+transform = Transform3D(1, 0, 0, 0, 0.999997, 0.00233874, 0, -0.00233874, 0.999997, 0, 0, 0)
+shape = SubResource("SphereShape3D_jenjo")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Grid/Units/Unit64/CollisionShape3D"]
+mesh = SubResource("SphereMesh_t8rx5")
+skeleton = NodePath("../..")
+
+[node name="Land" type="MeshInstance3D" parent="Grid"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 2.08165e-12, 2.08165e-12)
+mesh = SubResource("PlaneMesh_yyy2r")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Grid/Land"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Grid/Land/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_nytre")
+
+[node name="Debug" type="Node3D" parent="Grid"]
+
+[node name="Block10" type="MeshInstance3D" parent="Grid" groups=["obstacles"]]
+transform = Transform3D(1, -3.48787e-16, 3.48787e-16, 3.48787e-16, 1, -3.48787e-16, -3.48787e-16, 3.48787e-16, 1, -12.955, 0.5, -6.61)
+mesh = SubResource("PlaneMesh_jo4ox")
+skeleton = NodePath("../..")
